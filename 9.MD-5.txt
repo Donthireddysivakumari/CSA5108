@@ -1,0 +1,24 @@
+#include <stdio.h>
+#include <string.h>
+#include <openssl/md5.h>
+
+void calculate_md5(const char *input, unsigned char output[MD5_DIGEST_LENGTH]) {
+    MD5((unsigned char*)input, strlen(input), output);
+}
+
+void print_md5(unsigned char output[MD5_DIGEST_LENGTH]) {
+    for(int i = 0; i < MD5_DIGEST_LENGTH; i++) {
+        printf("%02x", output[i]);
+    }
+    printf("\n");
+}
+
+int main() {
+    const char *text = "Hello, World!";
+    unsigned char digest[MD5_DIGEST_LENGTH];
+
+    calculate_md5(text, digest);
+    print_md5(digest);
+
+    return 0;
+}
