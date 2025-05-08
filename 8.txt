@@ -1,0 +1,36 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+long long power(long long base, long long exp, long long mod) {
+    long long result = 1;
+    while (exp > 0) {
+        if (exp % 2 == 1) {
+            result = (result * base) % mod;
+        }
+        base = (base * base) % mod;
+        exp /= 2;
+    }
+    return result;
+}
+
+int main() {
+    long long p = 23; // A prime number
+    long long g = 5;  // A primitive root modulo p
+
+    long long a = 6; // Alice's private key
+    long long b = 15; // Bob's private key
+
+    long long A = power(g, a, p); // Alice's public key
+    long long B = power(g, b, p); // Bob's public key
+
+    long long secretA = power(B, a, p); // Shared secret for Alice
+    long long secretB = power(A, b, p); // Shared secret for Bob
+
+    printf("Alice's Public Key: %lld\n", A);
+    printf("Bob's Public Key: %lld\n", B);
+    printf("Shared Secret (Alice): %lld\n", secretA);
+    printf("Shared Secret (Bob): %lld\n", secretB);
+
+    return 0;
+}
